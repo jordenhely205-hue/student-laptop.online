@@ -31,7 +31,7 @@ export default function LoginPage() {
       
       // Student Login Check (All other inputs mock a student)
       if (formData.identifier && formData.password) {
-        // Just simulate success for demo purposes
+        // Just simulate success
         router.push("/dashboard");
       } else {
         setError("Invalid CNIC/Email or password.");

@@ -54,27 +54,15 @@ export default function Register() {
     setStep(step + 1);
   };
 
-  const handleSendOtp = async () => {
-    setLoading(true);
-    // Mock API call to send OTP
-    setTimeout(() => {
-      setLoading(false);
-      alert("OTP sent to your email/phone! (Since this is a demo, please enter '123456')");
-      setStep(3);
-    }, 1000);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleFinalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Mock registration submission and challan generation
     setTimeout(() => {
       setLoading(false);
+      alert("Application Submitted Successfully!");
       
-      // Save data locally to display in challan
       if (typeof window !== 'undefined') {
         const finalData = { ...formData };
-        // If they typed manually, replace the printed name with their custom typed name
         if (formData.boardOrUniversity === "Other" && formData.customInstitute) {
           finalData.boardOrUniversity = formData.customInstitute;
         }
@@ -103,14 +91,10 @@ export default function Register() {
             <div className={`${styles.stepIndicator} ${step >= 1 ? styles.active : ""}`}>1. Category</div>
             <div className={`${styles.stepLine} ${step >= 2 ? styles.activeLine : ""}`}></div>
             <div className={`${styles.stepIndicator} ${step >= 2 ? styles.active : ""}`}>2. Details</div>
-            <div className={`${styles.stepLine} ${step >= 3 ? styles.activeLine : ""}`}></div>
-            <div className={`${styles.stepIndicator} ${step >= 3 ? styles.active : ""}`}>3. Verification</div>
           </div>
 
           <h2 style={{marginTop: "2rem", marginBottom: "1.5rem"}}>{
-            step === 1 ? "Start Registration" : 
-            step === 2 ? "Personal & Academic Info" : 
-            "Verify Account"
+            step === 1 ? "Start Registration" : "Personal & Academic Info"
           }</h2>
 
           {step === 1 && (
@@ -136,7 +120,7 @@ export default function Register() {
           )}
 
           {step === 2 && (
-            <form onSubmit={(e) => { e.preventDefault(); handleSendOtp(); }}>
+            <form onSubmit={handleFinalSubmit}>
               <div style={{display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "1.5rem"}}>
                 <div>
                   <label className={styles.label}>Full Name (As per CNIC)</label>
@@ -209,11 +193,11 @@ export default function Register() {
                   <strong>Contact Information</strong>
                 </div>
                 <div>
-                  <label className={styles.label}>Email Address</label>
-                  <input type="email" name="email" className="input" value={formData.email} onChange={handleInputChange} required />
+                  <label className={styles.label}>Email Address (Optional)</label>
+                  <input type="email" name="email" className="input" value={formData.email} onChange={handleInputChange} />
                 </div>
                 <div>
-                  <label className={styles.label}>Phone Number</label>
+                  <label className={styles.label}>Mobile Number *</label>
                   <input type="tel" name="phone" className="input" placeholder="03XXXXXXXXX" value={formData.phone} onChange={handleInputChange} required />
                 </div>
                 <div style={{gridColumn: "span 2"}}>
@@ -225,27 +209,13 @@ export default function Register() {
               <div style={{display: "flex", gap: "1rem"}}>
                 <button type="button" className="btn btn-secondary" onClick={() => setStep(1)} style={{flex: 1}}>Back</button>
                 <button type="submit" className="btn btn-primary" disabled={loading} style={{flex: 2}}>
-                  {loading ? "Sending..." : "Send Verification OTP"}
+                  {loading ? "Submitting..." : "Submit Application"}
                 </button>
               </div>
             </form>
           )}
 
-          {step === 3 && (
-            <form onSubmit={handleSubmit}>
-              <div style={{marginBottom: "1.5rem"}}>
-                <p style={{color: "#64748b", marginBottom: "1rem"}}>We have sent a 6-digit OTP to your email: {formData.email}</p>
-                <label className={styles.label}>Enter OTP</label>
-                <input 
-                  type="text" name="otp" className="input" placeholder="123456" maxLength={6}
-                  value={formData.otp} onChange={handleInputChange} required style={{letterSpacing: "4px", fontSize: "1.25rem", textAlign: "center"}}
-                />
-              </div>
-              <button type="submit" className="btn btn-primary" disabled={loading} style={{width: "100%", padding: "0.75rem"}}>
-                {loading ? "Verifying..." : "Confirm & Generate Challan"}
-              </button>
-            </form>
-          )}
+
 
         </div>
       </main>

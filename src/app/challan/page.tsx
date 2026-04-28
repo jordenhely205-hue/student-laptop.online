@@ -13,7 +13,7 @@ export default function ChallanPage() {
       if (stored) {
         setData(JSON.parse(stored));
       } else {
-        // Fallback for demo
+        // Fallback
         setData({
           name: "AIMAN KHAN",
           fatherName: "ABDUL REHMAN",
@@ -92,7 +92,7 @@ export default function ChallanPage() {
           </table>
           
           <div style={{textAlign: "center", marginTop: "1rem"}}>
-            <img src="/qr_code.jpg" alt="QR Code" width="120" style={{border: "1px solid #ccc", padding: "5px", borderRadius: "8px"}} />
+            <img src="/qr_code_clean.png" alt="QR Code" width="160" style={{border: "1px solid #ccc", padding: "5px", borderRadius: "8px"}} />
             <div style={{marginTop: "0.5rem", fontSize: "0.9rem", fontWeight: "bold"}}>Merchant: Student Laptop Online</div>
             <div style={{fontSize: "1.2rem", color: "#b91c1c", fontWeight: "bold"}}>Till ID: 983191782</div>
           </div>
@@ -138,8 +138,8 @@ export default function ChallanPage() {
       <main className={`container ${styles.mainContent}`}>
          <div className={styles.printArea}>
            <ChallanCopy type="OFFICE COPY" />
-           <div className={styles.scissorLine}>
-             ✂------------------------------------------------------------------------------------------------------
+           <div className={styles.verticalScissor}>
+             <div className={styles.scissorIcon}>✂</div>
            </div>
            <ChallanCopy type="STUDENT COPY" />
          </div>
