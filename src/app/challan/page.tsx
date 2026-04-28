@@ -6,6 +6,10 @@ import styles from "./challan.module.css";
 
 export default function ChallanPage() {
   const [data, setData] = useState<any>(null);
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [tid, setTid] = useState("");
+  const [receiptImage, setReceiptImage] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -26,6 +30,36 @@ export default function ChallanPage() {
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setReceiptImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const submitProof = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!tid || !receiptImage) {
+      alert("Please enter Transaction ID and upload the screenshot.");
+      return;
+    }
+    setUploading(true);
+    setTimeout(() => {
+      setUploading(false);
+      localStorage.setItem("paymentProof", JSON.stringify({
+        tid,
+        image: receiptImage,
+        timestamp: new Date().toISOString()
+      }));
+      setShowUploadModal(false);
+      alert("Your payment proof has been submitted. Status will be updated after verification.");
+    }, 1500);
   };
 
   if (!data) return <div className="container" style={{padding: "2rem", textAlign: "center"}}>Loading...</div>;
@@ -129,6 +163,7 @@ export default function ChallanPage() {
              <img src="/logo.png" alt="Student Laptop Scheme Logo" width="200" height="66" style={{objectFit: "contain"}} />
            </div>
            <div>
+             <button onClick={() => setShowUploadModal(true)} className="btn" style={{backgroundColor: "#f59e0b", color: "white", marginRight: "1rem"}}>Upload Paid Receipt</button>
              <button onClick={handlePrint} className="btn btn-secondary" style={{marginRight: "1rem"}}>Print Challan</button>
              <Link href="/" className="btn btn-primary">Done</Link>
            </div>
@@ -144,6 +179,54 @@ export default function ChallanPage() {
            <ChallanCopy type="STUDENT COPY" />
          </div>
       </main>
+
+      {showUploadModal && (
+        <div style={{
+          position: "fixed", top: 0, left: 0, right: 0, bottom: 0, 
+          backgroundColor: "rgba(0,0,0,0.75)", zIndex: 999,
+          display: "flex", justifyContent: "center", alignItems: "center", padding: "1rem"
+        }}>
+          <div style={{backgroundColor: "white", padding: "2rem", borderRadius: "12px", maxWidth: "500px", width: "100%", position: "relative"}}>
+            <button 
+              onClick={() => setShowUploadModal(false)}
+              style={{position: "absolute", top: "1rem", right: "1rem", background: "#f1f5f9", border: "none", width: "30px", height: "30px", borderRadius: "50%", cursor: "pointer", fontWeight: "bold"}}
+            >×</button>
+            <h2 style={{marginBottom: "1.5rem", color: "#1e3a8a"}}>Submit Payment Proof</h2>
+            <form onSubmit={submitProof}>
+              <div style={{marginBottom: "1.5rem"}}>
+                <label style={{display: "block", marginBottom: "0.5rem", fontWeight: "bold"}}>Transaction ID (TID) *</label>
+                <input 
+                  type="text" 
+                  className="input" 
+                  placeholder="Enter TID from SMS/App" 
+                  value={tid} 
+                  onChange={(e) => setTid(e.target.value)} 
+                  required 
+                />
+              </div>
+              <div style={{marginBottom: "1.5rem"}}>
+                <label style={{display: "block", marginBottom: "0.5rem", fontWeight: "bold"}}>Upload Screenshot / Receipt *</label>
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  className="input" 
+                  onChange={handleImageUpload} 
+                  required 
+                  style={{padding: "0.5rem"}}
+                />
+                {receiptImage && (
+                  <div style={{marginTop: "1rem", textAlign: "center"}}>
+                    <img src={receiptImage} alt="Receipt Preview" style={{maxHeight: "150px", border: "1px solid #ccc", borderRadius: "8px"}} />
+                  </div>
+                )}
+              </div>
+              <button type="submit" className="btn btn-primary" disabled={uploading} style={{width: "100%", padding: "0.75rem", fontSize: "1.1rem"}}>
+                {uploading ? "Submitting..." : "Submit Proof"}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

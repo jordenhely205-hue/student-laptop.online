@@ -1,17 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 // Initial Mock Data
 const initialApplications = [
-  { id: "APP-1001", cnic: "35202-1234567-1", name: "Ahmad Ali", category: "Undergraduate", status: "Pending", voucherUrl: "/images/challan-preview.jpg" },
-  { id: "APP-1002", cnic: "42101-9876543-2", name: "Ayesha Khan", category: "Inter Level", status: "Verified", voucherUrl: "/images/challan-preview.jpg" },
-  { id: "APP-1003", cnic: "34101-1122334-5", name: "Hamza Tariq", category: "Matric", status: "Pending", voucherUrl: "/images/challan-preview.jpg" },
-  { id: "APP-1004", cnic: "36302-5566778-9", name: "Fatima Noor", category: "Postgraduate", status: "Rejected", voucherUrl: "/images/challan-preview.jpg" },
-  { id: "APP-1005", cnic: "35202-9988776-3", name: "Bilal Ahmad", category: "Undergraduate", status: "Pending", voucherUrl: "/images/challan-preview.jpg" },
-  { id: "APP-1006", cnic: "32101-5544332-1", name: "Sana Malik", category: "Inter Level", status: "Verified", voucherUrl: "/images/challan-preview.jpg" },
+  { id: "APP-1001", cnic: "35202-1234567-1", name: "Ahmad Ali", category: "Undergraduate", status: "Pending", voucherUrl: "/images/challan-preview.jpg", tid: "TID-987123" },
+  { id: "APP-1002", cnic: "42101-9876543-2", name: "Ayesha Khan", category: "Inter Level", status: "Verified", voucherUrl: "/images/challan-preview.jpg", tid: "TID-456789" },
+  { id: "APP-1003", cnic: "34101-1122334-5", name: "Hamza Tariq", category: "Matric", status: "Pending", voucherUrl: "/images/challan-preview.jpg", tid: "TID-112233" },
+  { id: "APP-1004", cnic: "36302-5566778-9", name: "Fatima Noor", category: "Postgraduate", status: "Rejected", voucherUrl: "/images/challan-preview.jpg", tid: "TID-998877" },
+  { id: "APP-1005", cnic: "35202-9988776-3", name: "Bilal Ahmad", category: "Undergraduate", status: "Pending", voucherUrl: "/images/challan-preview.jpg", tid: "TID-554433" },
+  { id: "APP-1006", cnic: "32101-5544332-1", name: "Sana Malik", category: "Inter Level", status: "Verified", voucherUrl: "/images/challan-preview.jpg", tid: "TID-112211" },
 ];
 
 export default function AdminDashboardPage() {
@@ -22,6 +22,27 @@ export default function AdminDashboardPage() {
   const [filterStatus, setFilterStatus] = useState("All");
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [voucherPreview, setVoucherPreview] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedProof = localStorage.getItem("paymentProof");
+      const storedData = localStorage.getItem("challanData");
+      if (storedProof && storedData) {
+        const proof = JSON.parse(storedProof);
+        const data = JSON.parse(storedData);
+        const newApp = {
+          id: `APP-${data.cnic.split("-").join("").slice(5, 10)}`,
+          cnic: data.cnic,
+          name: data.name,
+          category: data.level,
+          status: "Pending",
+          voucherUrl: proof.image,
+          tid: proof.tid
+        };
+        setApplications(prev => [newApp, ...prev]);
+      }
+    }
+  }, []);
 
   const handleLogout = () => {
     router.push("/login");
@@ -139,7 +160,8 @@ export default function AdminDashboardPage() {
                           <th style={{padding: "1rem"}}>App ID</th>
                           <th style={{padding: "1rem"}}>CNIC</th>
                           <th style={{padding: "1rem"}}>Name</th>
-                          <th style={{padding: "1rem"}}>Voucher</th>
+                          <th style={{padding: "1rem"}}>TID</th>
+                          <th style={{padding: "1rem"}}>Receipt</th>
                           <th style={{padding: "1rem"}}>Status</th>
                           <th style={{padding: "1rem"}}>Actions</th>
                       </tr>
@@ -158,6 +180,7 @@ export default function AdminDashboardPage() {
                           <td style={{padding: "1rem", fontWeight: "500", color: "#475569"}}>{app.id}</td>
                           <td style={{padding: "1rem", fontWeight: "bold"}}>{app.cnic}</td>
                           <td style={{padding: "1rem"}}>{app.name} <br/><span style={{fontSize: "0.85rem", color: "#64748b"}}>{app.category}</span></td>
+                          <td style={{padding: "1rem", fontWeight: "bold", color: "#2563eb"}}>{app.tid || "N/A"}</td>
                           <td style={{padding: "1rem"}}>
                             <button 
                               onClick={() => setVoucherPreview(app.voucherUrl)}
@@ -208,11 +231,16 @@ export default function AdminDashboardPage() {
               style={{position: "absolute", top: "1rem", right: "1rem", background: "#f1f5f9", border: "none", width: "30px", height: "30px", borderRadius: "50%", cursor: "pointer", fontWeight: "bold"}}
             >×</button>
             <h3 style={{marginBottom: "1rem"}}>Payment Voucher Review</h3>
-            <div style={{backgroundColor: "#f8fafc", border: "2px dashed #cbd5e1", borderRadius: "8px", padding: "3rem", textAlign: "center", height: "400px", display: "flex", flexDirection: "column", justifyContent: "center"}}>
-              {/* Dummy rendering representing actual voucher image */}
-              <span style={{fontSize: "3rem"}}>📄</span>
-              <p style={{marginTop: "1rem", color: "#64748b"}}>Simulated Voucher Image</p>
-              <p style={{fontSize: "0.85rem", color: "#94a3b8"}}>{voucherPreview}</p>
+            <div style={{backgroundColor: "#f8fafc", border: "2px dashed #cbd5e1", borderRadius: "8px", padding: "1rem", textAlign: "center", height: "400px", display: "flex", flexDirection: "column", justifyContent: "center", overflow: "hidden"}}>
+              {voucherPreview?.startsWith("data:image") ? (
+                <img src={voucherPreview} alt="Receipt" style={{maxHeight: "100%", maxWidth: "100%", objectFit: "contain"}} />
+              ) : (
+                <>
+                  <span style={{fontSize: "3rem"}}>📄</span>
+                  <p style={{marginTop: "1rem", color: "#64748b"}}>Simulated Voucher Image</p>
+                  <p style={{fontSize: "0.85rem", color: "#94a3b8"}}>{voucherPreview}</p>
+                </>
+              )}
             </div>
             <div style={{display: "flex", justifyContent: "flex-end", gap: "1rem", marginTop: "1.5rem"}}>
               <button className="btn btn-secondary" onClick={() => setVoucherPreview(null)}>Close Window</button>
