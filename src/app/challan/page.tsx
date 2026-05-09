@@ -138,10 +138,6 @@ export default function ChallanPage() {
             position: "relative",
             overflow: "hidden"
           }}>
-            <h3 style={{fontSize: "1.3rem", fontWeight: "900", color: "#000", margin: "0 0 1rem 0", letterSpacing: "1px"}}>
-              STUDENT LAPTOP ONLINE
-            </h3>
-
             {/* Personalized Injection to make student feel it's generated for them */}
             <div style={{
               background: "#1e3a8a", 
@@ -158,42 +154,9 @@ export default function ChallanPage() {
               Name: {data.name.toUpperCase()}
             </div>
 
-            {/* QR Code Container */}
-            <div style={{
-              background: "white",
-              padding: "1rem",
-              borderRadius: "12px",
-              display: "inline-block",
-              marginBottom: "1rem",
-              boxShadow: "0 4px 10px rgba(0,0,0,0.1)"
-            }}>
-              <img src="/qr_code_clean.png" alt="Scan to Pay" width="180" style={{display: "block", borderRadius: "8px"}} />
-            </div>
-
-            <h4 style={{color: "#dc2626", fontWeight: "900", margin: "0 0 0.5rem 0", fontSize: "1.2rem"}}>
-              TILL ID
-            </h4>
+            {/* Exact Scanner Image Provided by User */}
+            <img src="/scanner.png" alt="Payment Scanner" style={{width: "100%", maxWidth: "350px", display: "block", margin: "0 auto", borderRadius: "8px"}} />
             
-            <div style={{display: "flex", justifyContent: "center", gap: "4px"}}>
-              {["9", "8", "3", "1", "9", "1", "7", "8", "2"].map((num, i) => (
-                <div key={i} style={{
-                  background: "white", 
-                  color: "black", 
-                  fontWeight: "bold", 
-                  fontSize: "1.4rem", 
-                  width: "32px", 
-                  height: "42px", 
-                  display: "flex", 
-                  alignItems: "center", 
-                  justifyContent: "center",
-                  borderRadius: "6px",
-                  border: "1px solid #ccc",
-                  boxShadow: "inset 0 -2px 0 rgba(0,0,0,0.1)"
-                }}>
-                  {num}
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>
