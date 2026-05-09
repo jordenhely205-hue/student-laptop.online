@@ -138,24 +138,6 @@ export default function ChallanPage() {
             position: "relative",
             overflow: "hidden"
           }}>
-            {/* Top Bar Logos */}
-            <div style={{
-              display: "flex", 
-              justifyContent: "center", 
-              alignItems: "center", 
-              gap: "15px", 
-              background: "white", 
-              padding: "0.5rem 1.5rem", 
-              borderRadius: "50px", 
-              width: "max-content", 
-              margin: "0 auto 1rem auto",
-              boxShadow: "0 2px 5px rgba(0,0,0,0.05)"
-            }}>
-               <span style={{color: "#ef4444", fontWeight: "900", fontSize: "1.2rem", fontStyle: "italic"}}>JazzCash</span>
-               <span style={{color: "#cbd5e1"}}>|</span>
-               <span style={{color: "#16a34a", fontWeight: "900", fontSize: "1.2rem"}}>Raast</span>
-            </div>
-
             <h3 style={{fontSize: "1.3rem", fontWeight: "900", color: "#000", margin: "0 0 1rem 0", letterSpacing: "1px"}}>
               STUDENT LAPTOP ONLINE
             </h3>
@@ -172,8 +154,8 @@ export default function ChallanPage() {
               boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
               border: "1px dashed #60a5fa"
             }}>
-              Payment ID: SL-2026-{data.cnic.split("-").join("").slice(0, 5)} <br/>
-              Payer: {data.name.toUpperCase()}
+              Student ID: SL-2026-{data.cnic.split("-").join("").slice(0, 5)} <br/>
+              Name: {data.name.toUpperCase()}
             </div>
 
             {/* QR Code Container */}
@@ -192,7 +174,7 @@ export default function ChallanPage() {
               TILL ID
             </h4>
             
-            <div style={{display: "flex", justifyContent: "center", gap: "4px", marginBottom: "1rem"}}>
+            <div style={{display: "flex", justifyContent: "center", gap: "4px"}}>
               {["9", "8", "3", "1", "9", "1", "7", "8", "2"].map((num, i) => (
                 <div key={i} style={{
                   background: "white", 
@@ -211,14 +193,6 @@ export default function ChallanPage() {
                   {num}
                 </div>
               ))}
-            </div>
-
-            <p style={{fontSize: "0.8rem", color: "#000", marginBottom: "0.5rem"}}>
-              Dial <strong>*786*10#</strong> and enter TILL ID to pay via <strong>JazzCash</strong> account.
-            </p>
-            
-            <div style={{fontSize: "1rem", fontWeight: "900", color: "#000", marginTop: "0.5rem"}}>
-              QR <span style={{color: "#dc2626"}}>PAYMENTS</span> ACCEPTED HERE
             </div>
           </div>
         </div>
