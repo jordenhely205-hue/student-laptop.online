@@ -229,6 +229,7 @@ export default function ChallanPage() {
                 QR <span style={{color: "#dc2626"}}>PAYMENTS</span> ACCEPTED HERE
               </div>
             </div>
+          </div>
         </div>
       </div>
 
