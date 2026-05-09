@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Student Laptop Online - Laptop Scheme 2026",
   description: "Register now for the Student Laptop Scheme 2026. Online application for merit-based laptop distribution.",
+  verification: {
+    google: "db1d66fff1908dae",
+  },
 };
 
 export default function RootLayout({
