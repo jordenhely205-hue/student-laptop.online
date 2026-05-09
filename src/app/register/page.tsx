@@ -50,6 +50,15 @@ export default function Register() {
         alert("Please select your academic level (Inter or University).");
         return;
       }
+
+      // Check if CNIC is already registered
+      if (typeof window !== 'undefined') {
+        const registeredCNICs = JSON.parse(localStorage.getItem("registeredCNICs") || "[]");
+        if (registeredCNICs.includes(formData.cnic)) {
+          alert("This CNIC is already registered. You cannot apply again.");
+          return;
+        }
+      }
     }
     setStep(step + 1);
   };
@@ -59,9 +68,15 @@ export default function Register() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      alert("Application Submitted Successfully!");
       
       if (typeof window !== 'undefined') {
+        // Save to registered list
+        const registeredCNICs = JSON.parse(localStorage.getItem("registeredCNICs") || "[]");
+        if (!registeredCNICs.includes(formData.cnic)) {
+          registeredCNICs.push(formData.cnic);
+          localStorage.setItem("registeredCNICs", JSON.stringify(registeredCNICs));
+        }
+
         const finalData = { ...formData };
         if (formData.boardOrUniversity === "Other" && formData.customInstitute) {
           finalData.boardOrUniversity = formData.customInstitute;
@@ -69,6 +84,7 @@ export default function Register() {
         localStorage.setItem("challanData", JSON.stringify(finalData));
       }
       
+      alert("Application Submitted Successfully!");
       router.push("/challan");
     }, 1500);
   };

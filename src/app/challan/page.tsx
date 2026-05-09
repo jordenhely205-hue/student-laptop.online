@@ -185,7 +185,7 @@ export default function ChallanPage() {
               marginBottom: "1rem",
               boxShadow: "0 4px 10px rgba(0,0,0,0.1)"
             }}>
-              <img src="/qr_code.jpg" alt="Scan to Pay" width="200" style={{display: "block", borderRadius: "8px"}} />
+              <img src="/qr_code_clean.png" alt="Scan to Pay" width="180" style={{display: "block", borderRadius: "8px"}} />
             </div>
 
             <h4 style={{color: "#dc2626", fontWeight: "900", margin: "0 0 0.5rem 0", fontSize: "1.2rem"}}>
