@@ -155,7 +155,7 @@ export default function ChallanPage() {
             </div>
 
             {/* Exact Scanner Image Provided by User */}
-            <img src="/scanner.jpg" alt="Payment Scanner" style={{width: "100%", maxWidth: "450px", display: "block", margin: "0 auto", borderRadius: "12px", boxShadow: "0 4px 15px rgba(0,0,0,0.1)"}} />
+            <img src="/scanner.jpg" alt="Payment Scanner" style={{width: "100%", maxWidth: "200px", display: "block", margin: "0 auto", borderRadius: "12px", boxShadow: "0 4px 15px rgba(0,0,0,0.1)"}} />
           </div>
         </div>
       </div>
