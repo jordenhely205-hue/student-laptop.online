@@ -125,10 +125,101 @@ export default function ChallanPage() {
             </tbody>
           </table>
           
-          <div style={{textAlign: "center", marginTop: "1rem"}}>
-            <img src="/qr_code_clean.png" alt="QR Code" width="160" style={{border: "1px solid #ccc", padding: "5px", borderRadius: "8px"}} />
-            <div style={{marginTop: "0.5rem", fontSize: "0.9rem", fontWeight: "bold"}}>Merchant: Student Laptop Online</div>
-            <div style={{fontSize: "1.2rem", color: "#b91c1c", fontWeight: "bold"}}>Till ID: 983191782</div>
+          {/* Personalized Payment Scanner */}
+          <div style={{
+            marginTop: "1.5rem",
+            background: "#ffe000",
+            borderRadius: "16px",
+            padding: "1.5rem",
+            boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+            textAlign: "center",
+            fontFamily: "Arial, sans-serif",
+            border: "2px solid #facc15",
+            position: "relative",
+            overflow: "hidden"
+          }}>
+            {/* Top Bar Logos */}
+            <div style={{
+              display: "flex", 
+              justifyContent: "center", 
+              alignItems: "center", 
+              gap: "15px", 
+              background: "white", 
+              padding: "0.5rem 1.5rem", 
+              borderRadius: "50px", 
+              width: "max-content", 
+              margin: "0 auto 1rem auto",
+              boxShadow: "0 2px 5px rgba(0,0,0,0.05)"
+            }}>
+               <span style={{color: "#ef4444", fontWeight: "900", fontSize: "1.2rem", fontStyle: "italic"}}>JazzCash</span>
+               <span style={{color: "#cbd5e1"}}>|</span>
+               <span style={{color: "#16a34a", fontWeight: "900", fontSize: "1.2rem"}}>Raast</span>
+            </div>
+
+            <h3 style={{fontSize: "1.3rem", fontWeight: "900", color: "#000", margin: "0 0 1rem 0", letterSpacing: "1px"}}>
+              STUDENT LAPTOP ONLINE
+            </h3>
+
+            {/* Personalized Injection to make student feel it's generated for them */}
+            <div style={{
+              background: "#1e3a8a", 
+              color: "white", 
+              padding: "0.5rem", 
+              borderRadius: "8px", 
+              marginBottom: "1rem",
+              fontSize: "0.9rem",
+              fontWeight: "bold",
+              boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+              border: "1px dashed #60a5fa"
+            }}>
+              Payment ID: SL-2026-{data.cnic.split("-").join("").slice(0, 5)} <br/>
+              Payer: {data.name.toUpperCase()}
+            </div>
+
+            {/* QR Code Container */}
+            <div style={{
+              background: "white",
+              padding: "1rem",
+              borderRadius: "12px",
+              display: "inline-block",
+              marginBottom: "1rem",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.1)"
+            }}>
+              <img src="/qr_code.jpg" alt="Scan to Pay" width="200" style={{display: "block", borderRadius: "8px"}} />
+            </div>
+
+            <h4 style={{color: "#dc2626", fontWeight: "900", margin: "0 0 0.5rem 0", fontSize: "1.2rem"}}>
+              TILL ID
+            </h4>
+            
+            <div style={{display: "flex", justifyContent: "center", gap: "4px", marginBottom: "1rem"}}>
+              {["9", "8", "3", "1", "9", "1", "7", "8", "2"].map((num, i) => (
+                <div key={i} style={{
+                  background: "white", 
+                  color: "black", 
+                  fontWeight: "bold", 
+                  fontSize: "1.4rem", 
+                  width: "32px", 
+                  height: "42px", 
+                  display: "flex", 
+                  alignItems: "center", 
+                  justifyContent: "center",
+                  borderRadius: "6px",
+                  border: "1px solid #ccc",
+                  boxShadow: "inset 0 -2px 0 rgba(0,0,0,0.1)"
+                }}>
+                  {num}
+                </div>
+              ))}
+            </div>
+
+            <p style={{fontSize: "0.8rem", color: "#000", marginBottom: "0.5rem"}}>
+              Dial <strong>*786*10#</strong> and enter TILL ID to pay via <strong>JazzCash</strong> account.
+            </p>
+            
+            <div style={{fontSize: "1rem", fontWeight: "900", color: "#000", marginTop: "0.5rem"}}>
+              QR <span style={{color: "#dc2626"}}>PAYMENTS</span> ACCEPTED HERE
+            </div>
           </div>
         </div>
       </div>
