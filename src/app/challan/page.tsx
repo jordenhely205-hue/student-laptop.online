@@ -154,81 +154,8 @@ export default function ChallanPage() {
               Name: {data.name.toUpperCase()}
             </div>
 
-            <div style={{
-              background: "#fff",
-              borderRadius: "16px",
-              padding: "2rem",
-              boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
-              textAlign: "center",
-              fontFamily: "Arial, sans-serif",
-              border: "1px solid #e5e7eb",
-              position: "relative",
-              maxWidth: "400px",
-              margin: "0 auto"
-            }}>
-              {/* Top Bar Logos (Recreating the Pill) */}
-              <div style={{
-                display: "flex", 
-                justifyContent: "center", 
-                alignItems: "center", 
-                gap: "15px", 
-                background: "white", 
-                padding: "0.5rem 1.5rem", 
-                borderRadius: "50px", 
-                width: "max-content", 
-                margin: "0 auto 1rem auto",
-                border: "1px solid #f97316"
-              }}>
-                 <span style={{color: "#dc2626", fontWeight: "900", fontSize: "1.2rem", fontStyle: "italic"}}>JazzCash</span>
-                 <span style={{color: "#cbd5e1"}}>|</span>
-                 <span style={{color: "#dc2626", fontWeight: "900", fontSize: "1.2rem"}}>Raast</span>
-              </div>
-
-              <h3 style={{fontSize: "1.4rem", fontWeight: "500", color: "#000", margin: "0 0 1rem 0", letterSpacing: "1px"}}>
-                STUDENT LAPTOP ONLINE
-              </h3>
-
-              {/* QR Code Container */}
-              <div style={{
-                display: "inline-block",
-                marginBottom: "1rem",
-              }}>
-                <img src="/qr_code.jpg" alt="Scan to Pay" width="220" style={{display: "block", borderRadius: "12px", border: "4px solid #facc15"}} />
-              </div>
-
-              <h4 style={{color: "#dc2626", fontWeight: "900", margin: "0 0 0.5rem 0", fontSize: "1.3rem"}}>
-                TILL ID
-              </h4>
-              
-              <div style={{display: "flex", justifyContent: "center", gap: "6px", marginBottom: "1rem"}}>
-                {["9", "8", "3", "1", "9", "1", "7", "8", "2"].map((num, i) => (
-                  <div key={i} style={{
-                    background: "white", 
-                    color: "black", 
-                    fontWeight: "900", 
-                    fontSize: "1.5rem", 
-                    width: "34px", 
-                    height: "44px", 
-                    display: "flex", 
-                    alignItems: "center", 
-                    justifyContent: "center",
-                    borderRadius: "6px",
-                    border: "1px solid #666",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.1)"
-                  }}>
-                    {num}
-                  </div>
-                ))}
-              </div>
-
-              <p style={{fontSize: "0.8rem", color: "#666", marginBottom: "1rem"}}>
-                Dial <strong>*786*10#</strong> and enter <strong>TILL ID</strong> to pay via <strong>JazzCash</strong> account
-              </p>
-              
-              <div style={{fontSize: "1.1rem", fontWeight: "900", color: "#000", marginTop: "0.5rem"}}>
-                QR <span style={{color: "#dc2626"}}>PAYMENTS</span> ACCEPTED HERE
-              </div>
-            </div>
+            {/* Exact Scanner Image Provided by User */}
+            <img src="/scanner.jpg" alt="Payment Scanner" style={{width: "100%", maxWidth: "450px", display: "block", margin: "0 auto", borderRadius: "12px", boxShadow: "0 4px 15px rgba(0,0,0,0.1)"}} />
           </div>
         </div>
       </div>
