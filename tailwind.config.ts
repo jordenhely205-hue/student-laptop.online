@@ -9,9 +9,12 @@ const config: Config = {
   theme: {
     extend: {},
   },
+  // corePlugins ko yahan se hata kar seedha plugins ke upar likhein 
+  // aur syntax check karein
   corePlugins: {
     preflight: false,
   },
   plugins: [],
-};
+} satisfies Config; // Ye line TypeScript ko batati hai ke config sahi hai
+
 export default config;
