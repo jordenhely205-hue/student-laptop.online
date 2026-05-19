@@ -88,7 +88,16 @@ export default function Register() {
     let newErrors: { [key: string]: string } = {};
     if (!formData.name) newErrors.name = "Required.";
     if (!formData.fatherName) newErrors.fatherName = "Required.";
-    if (!formData.cnic || formData.cnic.length !== 15) newErrors.cnic = "Valid 13-digit CNIC required.";
+    
+    if (!formData.cnic || formData.cnic.length !== 15) {
+      newErrors.cnic = "Valid 13-digit CNIC required.";
+    } else if (typeof window !== "undefined") {
+      const registeredCNICs = JSON.parse(localStorage.getItem("registeredCNICs") || "[]");
+      if (registeredCNICs.includes(formData.cnic)) {
+        newErrors.cnic = "This CNIC is already registered!";
+      }
+    }
+
     if (!formData.gender) newErrors.gender = "Required.";
     if (!formData.dob) newErrors.dob = "Required.";
     setErrors(newErrors);
