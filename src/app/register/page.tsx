@@ -167,6 +167,7 @@ export default function Register() {
         }
 
         const challanData = {
+          uniqueId: `SL-${Math.floor(1000 + Math.random() * 9000)}`,
           name: formData.name,
           fatherName: formData.fatherName,
           cnic: formData.cnic,

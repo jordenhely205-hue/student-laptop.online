@@ -30,7 +30,7 @@ export default function RootLayout({
       <body>
         <div className="news-ticker">
           <div className="news-ticker-content">
-            📢 Important Notice: Online Registration for Student Laptop Scheme 2026 is currently open. Last date to apply is 25th May. Apply as soon as possible!
+            📢 Important Notice: Online Registration for Student Laptop Scheme 2026 is currently open. Last date to apply is 15th June 2026. Apply as soon as possible!
           </div>
         </div>
         {children}

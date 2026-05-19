@@ -19,6 +19,7 @@ export default function ChallanPage() {
       } else {
         // Fallback
         setData({
+          uniqueId: "SL-1001",
           name: "AIMAN KHAN",
           fatherName: "ABDUL REHMAN",
           cnic: "42101-2345678-0",
@@ -72,7 +73,7 @@ export default function ChallanPage() {
         </div>
         <div className={styles.metaArea}>
           Date: {new Date().toLocaleDateString('en-GB')}<br />
-          Challan No: SL-{new Date().getFullYear()}-{data.cnic.split("-").join("").slice(0, 5)}<br />
+          Challan No: {data.uniqueId || `SL-${new Date().getFullYear()}-${data.cnic.split("-").join("").slice(0, 5)}`}<br />
           Application ID: APP-{data.cnic.split("-").join("").slice(5, 10)}
         </div>
       </div>
@@ -125,16 +126,16 @@ export default function ChallanPage() {
             </tbody>
           </table>
           
-          {/* Personalized Payment Scanner */}
+          {/* Payment Info */}
           <div style={{
             marginTop: "1.5rem",
-            background: "#ffe000",
+            background: "#f8fafc",
             borderRadius: "16px",
             padding: "1.5rem",
             boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
             textAlign: "center",
             fontFamily: "Arial, sans-serif",
-            border: "2px solid #facc15",
+            border: "2px solid #cbd5e1",
             position: "relative",
             overflow: "hidden"
           }}>
@@ -150,12 +151,25 @@ export default function ChallanPage() {
               boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
               border: "1px dashed #60a5fa"
             }}>
-              Student ID: SL-2026-{data.cnic.split("-").join("").slice(0, 5)} <br/>
-              Name: {data.name.toUpperCase()}
+              Student ID: {data.uniqueId || `SL-2026-${data.cnic.split("-").join("").slice(0, 5)}`} <br/>
+              Full Name: {data.name.toUpperCase()}
             </div>
 
-            {/* Exact Scanner Image Provided by User */}
-            <img src="/scanner.jpg" alt="Payment Scanner" style={{width: "100%", maxWidth: "200px", display: "block", margin: "0 auto", borderRadius: "12px", boxShadow: "0 4px 15px rgba(0,0,0,0.1)"}} />
+            {/* Till ID Provided by User */}
+            <div style={{ 
+              marginTop: "1rem", 
+              padding: "1rem", 
+              background: "white", 
+              borderRadius: "8px", 
+              border: "2px solid #e2e8f0" 
+            }}>
+              <p style={{ fontSize: "1.2rem", color: "#333", margin: "0 0 0.5rem 0", fontWeight: "bold" }}>
+                Till ID: <span style={{ color: "#d97706", fontSize: "1.5rem" }}>983191782</span>
+              </p>
+              <p style={{ fontSize: "1rem", color: "#475569", margin: 0, fontWeight: "bold" }}>
+                Name: Student Laptop Online
+              </p>
+            </div>
           </div>
         </div>
       </div>
